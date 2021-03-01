@@ -1,6 +1,33 @@
-#title {
-  color: rgb(80, 80, 80);
+@import "~react-image-gallery/styles/css/image-gallery.css";
+.cont {
+  margin-left: 20px;
 }
 .star_rating_container {
   width: 100%;
+}
+
+.stars {
+  display: inline-block;
+}
+.read-reviews {
+  color: rgb(104, 104, 104);
+  display: inline-block;
+  margin-left: 7px;
+  font-size: 13px;
+}
+.read-reviews:hover {
+  cursor: pointer;
+}
+.category-label {
+  margin-top: 10px;
+  color: rgb(120, 120, 120);
+  font-size: 25px;
+}
+
+.product-name {
+  color: rgb(80, 80, 80);
+  font-weight: bold;
+}
+.price {
+  color: rgb(96, 96, 96);
 }
