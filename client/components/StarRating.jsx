@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "axios";
+import StarRatings from "react-star-ratings";
 
 class StarRating extends React.Component {
   constructor(props) {
@@ -7,12 +7,23 @@ class StarRating extends React.Component {
   }
 
   componentDidMount() {
-    console.log("service mounted");
-   
+    console.log("star rating mounted");
   }
 
   render() {
-    return <div></div>;
+    return (
+      <div className="star_rating_container">
+        <StarRatings
+          rating={4.355}
+          starRatedColor="rgb(80, 80, 80)"
+          changeRating={this.changeRating}
+          starDimension="15px"
+          starSpacing="1px"
+          numberOfStars={5}
+          name="rating"
+        />
+      </div>
+    );
   }
 }
 

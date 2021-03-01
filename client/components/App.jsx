@@ -1,6 +1,6 @@
 import axios from "axios";
 import React from "react";
-
+import GeneralInformation from "./GeneralInformation.jsx";
 export default class App extends React.Component {
   constructor() {
     super();
@@ -15,7 +15,7 @@ export default class App extends React.Component {
     axios
       .get("/product")
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -25,8 +25,8 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        <h1>Hello Service 1</h1>
-        {/* <GeneralInformation /> */}
+        <h1 id="title">Hello Service 1</h1>
+        <GeneralInformation />
       </div>
     );
   }
