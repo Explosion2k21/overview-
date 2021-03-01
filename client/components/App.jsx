@@ -1,33 +1,40 @@
-import axios from "axios";
 import React from "react";
+import axios from "axios";
 import GeneralInformation from "./GeneralInformation.jsx";
-export default class App extends React.Component {
-  constructor() {
-    super();
-
+class App extends React.Component {
+  constructor(props) {
+    super(props);
     this.state = {
       data: [],
+      result: [],
     };
   }
 
   componentDidMount() {
-    console.log("service mounted");
     axios
-      .get("/product")
-      .then((res) => {
-        console.log(res.data);
+      .get("/reviews/rating")
+      .then((response) => {
+        this.setState(
+          {
+            result: response.data.results,
+          },
+          () => {
+            console.log(this.state);
+          }
+        );
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
+        console.log(error);
       });
   }
 
   render() {
     return (
       <div>
-        <h1 id="title">Hello Service 1</h1>
-        <GeneralInformation />
+        <GeneralInformation result={this.state.result} />
       </div>
     );
   }
 }
+
+export default App;

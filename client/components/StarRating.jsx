@@ -1,27 +1,36 @@
 import React from "react";
 import StarRatings from "react-star-ratings";
-
+import axios from "axios";
+// import axios from "axios";
+// import addRate from "../redux/actions/ratingActions";
 class StarRating extends React.Component {
   constructor(props) {
     super(props);
   }
 
-  componentDidMount() {
-    console.log("star rating mounted");
-  }
-
   render() {
+    const myResult = this.props.ratingArr;
+    var totalRating = 0;
+    var totalUsers = this.props.ratingArr.length;
+    myResult.map((element) => {
+      totalRating += element.rating;
+    });
+    console.log(totalRating);
+    console.log(totalUsers);
+    var currentRate = totalRating / totalUsers || 0;
+    console.log(currentRate);
     return (
       <div className="star_rating_container">
-        <StarRatings
-          rating={4.355}
-          starRatedColor="rgb(80, 80, 80)"
-          changeRating={this.changeRating}
-          starDimension="15px"
-          starSpacing="1px"
-          numberOfStars={5}
-          name="rating"
-        />
+        {totalUsers ? (
+          <StarRatings
+            rating={currentRate}
+            starRatedColor="rgb(80, 80, 80)"
+            starDimension="15px"
+            starSpacing="1px"
+            numberOfStars={5}
+            name="rating"
+          />
+        ) : null}
       </div>
     );
   }

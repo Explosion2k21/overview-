@@ -7,8 +7,6 @@ const port = process.env.PORT || 3002;
 
 var axios = require("axios");
 
-var MY_KEY = process.env.API_KEY;
-
 app.use(morgan("dev"));
 app.use(express.static(path.join(__dirname, "../public")));
 app.get("/product", (req, res) => {
@@ -18,8 +16,25 @@ app.get("/product", (req, res) => {
         Authorization: process.env.API_KEY,
       },
     })
-    .then((response) => {
-      res.send(response.data);
+    .then(({ data }) => {
+      res.send(data);
+    })
+    .catch((error) => console.error(`Something went wrong ${error}`));
+});
+
+app.get("/reviews/rating", (req, res) => {
+  axios
+    .get(
+      "https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/reviews?product_id=11001",
+      {
+        headers: {
+          Authorization: process.env.API_KEY,
+        },
+      }
+    )
+    .then(({ data }) => {
+      console.log("what");
+      res.send(data);
     })
     .catch((error) => console.error(`Something went wrong ${error}`));
 });
