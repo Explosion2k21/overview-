@@ -1,4 +1,4 @@
-@import "~react-image-gallery/styles/css/image-gallery.css";
+/* @import "node_modules/react-image-gallery/styles/css/image-gallery.css"; */
 .cont {
   margin-left: 20px;
 }
@@ -30,4 +30,106 @@
 }
 .price {
   color: rgb(96, 96, 96);
+}
+
+.lil-nav {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+#img-cont {
+  width: 40%;
+  display: inline-block;
+}
+#general-cont {
+  display: inline-block;
+  margin-left: 10rem;
+
+  max-width: 20rem;
+}
+#third {
+  height: 20rem;
+}
+
+.carouselImg {
+  width: 100%;
+  height: 40rem;
+}
+.ext-cont {
+  align-items: center;
+  margin-top: 2rem;
+  margin-left: 17rem;
+}
+
+.int-cont {
+  width: 100%;
+  margin: auto;
+  height: 100%;
+  display: inline-block;
+}
+.carousel-container {
+  width: 130%;
+  display: inline-block;
+  margin: auto;
+}
+
+.gallery-cont {
+  display: inline-block;
+  height: 36rem;
+  background-color: rgb(232, 232, 232);
+}
+.thumbnail-image {
+  width: 5rem;
+  height: 5rem;
+}
+.thumbnail-image:hover {
+  cursor: pointer;
+}
+.thumbnail-container {
+  margin-bottom: 1rem;
+}
+.style-selector-thumbnail {
+  height: 3.5rem;
+  width: 3.5rem;
+  border-radius: 50%;
+  background-color: rgb(80, 80, 80);
+  display: inline-block;
+  margin-right: 1rem;
+  margin-bottom: 0.5rem;
+}
+.style-selector-thumbnail:hover {
+  cursor: pointer;
+}
+
+#style {
+  color: rgb(80, 80, 80);
+}
+.style-holder {
+  margin-top: 2rem;
+  margin-left: 20px;
+}
+
+.trick {
+  height: 5rem;
+
+  width: 2rem;
+  display: inline-block;
+}
+#Forest-Green-Black {
+  background: radial-gradient(black, #228b22);
+}
+#Desert-Brown-Tan {
+  background: radial-gradient(#d2b48c, #a15f3b);
+}
+#Ocean-Blue-Grey {
+  background: radial-gradient(grey, #0077be);
+}
+#Digital-Red-Black {
+  background: radial-gradient(black, #ff2d00);
+}
+#Sky-Blue-White {
+  background: radial-gradient(white, #00ffee);
+}
+#Dark-Grey-Black {
+  background: radial-gradient(black, rgb(80, 80, 80));
 }
