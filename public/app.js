@@ -11236,8 +11236,11 @@ var ThumbnailsImages = function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
+      //getting the thumbnail urls from the api throw an axios request
       _axios2.default.get("/product/images").then(function (response) {
-        _this2.setState({
+        _this2.setState(
+        // save the data that we get in the state of the class
+        {
           items: response.data.results
         }, function () {});
       }).catch(function (error) {
@@ -11249,11 +11252,11 @@ var ThumbnailsImages = function (_React$Component) {
     value: function render() {
       var _this3 = this;
 
+      //now we gonna map through that data and
       var myThumbnail = [];
       this.state.items.map(function (item) {
         myThumbnail.push(item.photos);
       });
-
       return _react2.default.createElement(
         "div",
         { className: "thumb-connt" },
@@ -11264,7 +11267,7 @@ var ThumbnailsImages = function (_React$Component) {
             _react2.default.createElement("img", {
               className: "thumbnail-image",
               onClick: _this3.props.changeImage,
-              src: item[_this3.props.index].url
+              src: item[_this3.props.index].thumbnail_url
             })
           );
         }) : null,
@@ -11334,6 +11337,10 @@ var _StyleSelector = __webpack_require__(551);
 
 var _StyleSelector2 = _interopRequireDefault(_StyleSelector);
 
+var _SizeAndQuantity = __webpack_require__(552);
+
+var _SizeAndQuantity2 = _interopRequireDefault(_SizeAndQuantity);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -11355,8 +11362,8 @@ var App = function (_React$Component) {
       data: [],
       result: [],
       currentImage: "",
-      currentStyle: "",
-      index: 0
+      index: 0,
+      skus: 0
     };
     _this.handleClick = _this.handleClick.bind(_this);
     _this.changeStyle = _this.changeStyle.bind(_this);
@@ -11400,14 +11407,21 @@ var App = function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
+      // getting the array that containst the images of the product from the api with an axios call
       _axios2.default.get("/product/images").then(function (response) {
+        console.log(response.data.results);
+        // when the data comes, change the items propriety of the state to hold the incoming data by setState function
         _this2.setState({
           items: response.data.results
-        }, function () {});
+        }, function () {
+          console.log("need the state", _this2.state);
+        });
       }).catch(function (error) {
         console.log(error);
       });
+      //bringing the ratings from the api
       _axios2.default.get("/reviews/rating").then(function (response) {
+        //set the results property of the state to hold the elements that contains the rate inside of it
         _this2.setState({
           result: response.data.results
         });
@@ -11418,24 +11432,27 @@ var App = function (_React$Component) {
   }, {
     key: "handleClick",
     value: function handleClick(event) {
+      // when the user clicks, we need to store the url of the targeted element inside of the state so we
+      // can render it later in the main image holder
       this.setState({
         currentImage: event.target.src
       }, function () {});
-
+      //return the url that you stored in your state so when you invoce the function in the src of the image it give us the
+      // url of the current image that we want to display
       return this.state.currentImage;
     }
   }, {
     key: "changeStyle",
     value: function changeStyle(event) {
       this.setState({
-        currentStyle: event.target.getAttribute("name"),
-        index: event.target.getAttribute("index")
+        //storing the index of each clicked element so we can use that index to render the images of that specific style
+        index: event.target.getAttribute("index"),
+        skus: event.target.getAttribute("skus")
       });
     }
   }, {
     key: "render",
     value: function render() {
-      console.log("whats the problem exactly", this.state.items);
       return _react2.default.createElement(
         "div",
         { className: "ext-cont" },
@@ -11465,7 +11482,10 @@ var App = function (_React$Component) {
             _react2.default.createElement(
               "div",
               { id: "general-inf-cont" },
-              _react2.default.createElement(_GeneralInformation2.default, { result: this.state.result })
+              _react2.default.createElement(_GeneralInformation2.default, {
+                index: this.state.index,
+                result: this.state.result
+              })
             ),
             _react2.default.createElement(
               "div",
@@ -11475,8 +11495,17 @@ var App = function (_React$Component) {
                 { className: "style-holder" },
                 this.renderStyle(),
                 _react2.default.createElement(_StyleSelector2.default, {
+                  index: this.state.index,
                   changeStyle: this.changeStyle,
                   styles: this.state.items
+                })
+              ),
+              _react2.default.createElement(
+                "div",
+                { className: "size-and-quantity" },
+                _react2.default.createElement(_SizeAndQuantity2.default, {
+                  index: this.state.index,
+                  skus: this.state.skus
                 })
               )
             )
@@ -14312,11 +14341,10 @@ var GeneralInformation = function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
+      //getting the general informations using an axios request to the api
       _axios2.default.get("/product").then(function (response) {
         _this2.setState({
-          data: response.data[0]
-        }, function () {
-          console.log("my state is ", _this2.state);
+          data: response.data[_this2.props.index]
         });
       }).catch(function (error) {
         console.log(error);
@@ -14325,6 +14353,7 @@ var GeneralInformation = function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      console.log(this.state);
       return _react2.default.createElement(
         "div",
         { className: "cont" },
@@ -14399,8 +14428,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-// import axios from "axios";
-// import addRate from "../redux/actions/ratingActions";
 var StarRating = function (_React$Component) {
   _inherits(StarRating, _React$Component);
 
@@ -14413,6 +14440,8 @@ var StarRating = function (_React$Component) {
   _createClass(StarRating, [{
     key: "render",
     value: function render() {
+      // after passing the array that contains the rating through the props, we gonna map throw it a
+      // and sum the total numbre of rating then devide it by the number of users that voted for that product
       var myResult = this.props.ratingArr;
       var totalRating = 0;
       var totalUsers = this.props.ratingArr.length;
@@ -15928,11 +15957,11 @@ var ImageGallery = function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
+      // getting the images using an axios request from the api
       _axios2.default.get("/product/images").then(function (response) {
         _this2.setState({
+          //setting the state to hold the array that contains the images urls
           items: response.data.results
-        }, function () {
-          console.log("staaaate", _this2.state.items[0].photos);
         });
       }).catch(function (error) {
         console.log(error);
@@ -15947,7 +15976,7 @@ var ImageGallery = function (_React$Component) {
       this.state.items.map(function (item) {
         myImages.push(item.photos);
       });
-      console.log("imaages hee", myImages[this.props.indexs]);
+      console.log("imaages hee", myImages[this.props.index]);
       return _react2.default.createElement(
         "div",
         { className: "carousel-container" },
@@ -81081,17 +81110,22 @@ var StyleSelector = function (_Component) {
 
     return _possibleConstructorReturn(this, (StyleSelector.__proto__ || Object.getPrototypeOf(StyleSelector)).call(this, props));
   }
+  // now we gonna map through the styling array that we sended through the props and each time we
+  // pass through an element we take the name of that style, and we store the index also because we are going
+  // to need it later to render the correct images.
+
 
   _createClass(StyleSelector, [{
     key: "render",
     value: function render() {
       var _this2 = this;
 
-      var arr = this.props.styles;
+      var array = this.props.styles;
+
       return _react2.default.createElement(
         "div",
         null,
-        arr.map(function (style, i) {
+        array.map(function (style, i) {
           var arr = [];
           for (var j = 0; j < style.name.length; j++) {
             if (style.name[j] !== " " && style.name[j] !== "&") {
@@ -81105,14 +81139,23 @@ var StyleSelector = function (_Component) {
             }
           }
           var res = arr.join("");
+          var skusObj = array[_this2.props.index].skus;
+
+          var skusArr = [];
+          for (var key in skusObj) {
+            skusArr.push(key);
+          }
 
           return _react2.default.createElement("div", {
+            skus: skusArr[_this2.props.index],
             index: i,
             key: i,
             name: style.name,
             className: "style-selector-thumbnail",
             id: res,
-            onClick: _this2.props.changeStyle
+            onClick: function onClick(e) {
+              _this2.props.changeStyle(e);
+            }
           });
         })
       );
@@ -81123,6 +81166,119 @@ var StyleSelector = function (_Component) {
 }(_react.Component);
 
 exports.default = StyleSelector;
+
+/***/ }),
+/* 552 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _axios = __webpack_require__(34);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SizeAndQuantity = function (_React$Component) {
+  _inherits(SizeAndQuantity, _React$Component);
+
+  function SizeAndQuantity(props) {
+    _classCallCheck(this, SizeAndQuantity);
+
+    var _this = _possibleConstructorReturn(this, (SizeAndQuantity.__proto__ || Object.getPrototypeOf(SizeAndQuantity)).call(this, props));
+
+    _this.state = {
+      elements: []
+    };
+    return _this;
+  }
+
+  _createClass(SizeAndQuantity, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      _axios2.default.get("/product/images").then(function (response) {
+        // when the data comes, change the items propriety of the state to hold the incoming data by setState function
+        _this2.setState({
+          elements: response.data.results
+        }, function () {
+          console.log("need the state 222222222", _this2.state);
+        });
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var ourArr = this.state.elements;
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          "select",
+          { name: "cars", id: "opts" },
+          _react2.default.createElement(
+            "option",
+            { className: "opt", value: "" },
+            "Select Size"
+          ),
+          _react2.default.createElement(
+            "option",
+            { className: "opt", value: "S" },
+            "S"
+          ),
+          _react2.default.createElement(
+            "option",
+            { className: "opt", value: "L" },
+            "L"
+          ),
+          _react2.default.createElement(
+            "option",
+            { className: "opt", value: "XL" },
+            "XL"
+          ),
+          _react2.default.createElement(
+            "option",
+            { className: "opt", value: "XXL" },
+            "XXL"
+          )
+        ),
+        _react2.default.createElement(
+          "select",
+          { name: "cars", id: "qunts" },
+          _react2.default.createElement(
+            "option",
+            { className: "qunt", value: "1" },
+            "1"
+          )
+        )
+      );
+    }
+  }]);
+
+  return SizeAndQuantity;
+}(_react2.default.Component);
+
+exports.default = SizeAndQuantity;
 
 /***/ })
 /******/ ]);

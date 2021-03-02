@@ -12,17 +12,14 @@ class ImageGallery extends React.Component {
   }
 
   componentDidMount() {
+    // getting the images using an axios request from the api
     axios
       .get("/product/images")
       .then((response) => {
-        this.setState(
-          {
-            items: response.data.results,
-          },
-          () => {
-            console.log("staaaate", this.state.items[0].photos);
-          }
-        );
+        this.setState({
+          //setting the state to hold the array that contains the images urls
+          items: response.data.results,
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -34,7 +31,7 @@ class ImageGallery extends React.Component {
     this.state.items.map((item) => {
       myImages.push(item.photos);
     });
-    console.log("imaages hee", myImages[this.props.indexs]);
+    console.log("imaages hee", myImages[this.props.index]);
     return (
       <div className="carousel-container">
         <Carousel>

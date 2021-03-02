@@ -4,12 +4,15 @@ export default class StyleSelector extends Component {
   constructor(props) {
     super(props);
   }
-
+  // now we gonna map through the styling array that we sended through the props and each time we
+  // pass through an element we take the name of that style, and we store the index also because we are going
+  // to need it later to render the correct images.
   render() {
-    const arr = this.props.styles;
+    const array = this.props.styles;
+
     return (
       <div>
-        {arr.map((style, i) => {
+        {array.map((style, i) => {
           var arr = [];
           for (var j = 0; j < style.name.length; j++) {
             if (style.name[j] !== " " && style.name[j] !== "&") {
@@ -23,15 +26,24 @@ export default class StyleSelector extends Component {
             }
           }
           var res = arr.join("");
+          var skusObj = array[this.props.index].skus;
+
+          var skusArr = [];
+          for (var key in skusObj) {
+            skusArr.push(key);
+          }
 
           return (
             <div
+              skus={skusArr[this.props.index]}
               index={i}
               key={i}
               name={style.name}
               className="style-selector-thumbnail"
               id={res}
-              onClick={this.props.changeStyle}
+              onClick={(e) => {
+                this.props.changeStyle(e);
+              }}
             ></div>
           );
         })}

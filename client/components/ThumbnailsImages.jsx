@@ -9,10 +9,12 @@ class ThumbnailsImages extends React.Component {
     };
   }
   componentDidMount() {
+    //getting the thumbnail urls from the api throw an axios request
     axios
       .get("/product/images")
       .then((response) => {
         this.setState(
+          // save the data that we get in the state of the class
           {
             items: response.data.results,
           },
@@ -23,12 +25,13 @@ class ThumbnailsImages extends React.Component {
         console.log(error);
       });
   }
+
   render() {
+    //now we gonna map through that data and
     var myThumbnail = [];
     this.state.items.map((item) => {
       myThumbnail.push(item.photos);
     });
-
     return (
       <div className="thumb-connt">
         {myThumbnail.length !== 0
@@ -38,7 +41,7 @@ class ThumbnailsImages extends React.Component {
                   <img
                     className="thumbnail-image"
                     onClick={this.props.changeImage}
-                    src={item[this.props.index].url}
+                    src={item[this.props.index].thumbnail_url}
                   />
                 </div>
               );

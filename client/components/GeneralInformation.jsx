@@ -9,17 +9,13 @@ class GeneralInformation extends React.Component {
     };
   }
   componentDidMount() {
+    //getting the general informations using an axios request to the api
     axios
       .get("/product")
       .then((response) => {
-        this.setState(
-          {
-            data: response.data[0],
-          },
-          () => {
-            console.log("my state is ", this.state);
-          }
-        );
+        this.setState({
+          data: response.data[this.props.index],
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -27,6 +23,7 @@ class GeneralInformation extends React.Component {
   }
 
   render() {
+    console.log(this.state);
     return (
       <div className="cont">
         <div className="rate-review-container">
