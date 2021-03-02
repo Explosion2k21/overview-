@@ -33,7 +33,23 @@ app.get("/reviews/rating", (req, res) => {
       }
     )
     .then(({ data }) => {
-      console.log("what");
+      res.send(data);
+    })
+    .catch((error) => console.error(`Something went wrong ${error}`));
+});
+
+app.get("/product/images", (req, res) => {
+  axios
+    .get(
+      "https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/products/11001/styles",
+      {
+        headers: {
+          Authorization: process.env.API_KEY,
+        },
+      }
+    )
+    .then(({ data }) => {
+      console.log(data);
       res.send(data);
     })
     .catch((error) => console.error(`Something went wrong ${error}`));
