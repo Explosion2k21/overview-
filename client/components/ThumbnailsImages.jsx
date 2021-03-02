@@ -28,7 +28,6 @@ class ThumbnailsImages extends React.Component {
     this.state.items.map((item) => {
       myThumbnail.push(item.photos);
     });
-    console.log("thumbnaaaaiiillll hee", myThumbnail[0]);
 
     return (
       <div className="thumb-connt">
@@ -39,7 +38,7 @@ class ThumbnailsImages extends React.Component {
                   <img
                     className="thumbnail-image"
                     onClick={this.props.changeImage}
-                    src={item[0].thumbnail_url}
+                    src={item[this.props.index].url}
                   />
                 </div>
               );

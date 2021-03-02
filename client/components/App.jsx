@@ -12,10 +12,32 @@ class App extends React.Component {
       data: [],
       result: [],
       currentImage: "",
+      currentStyle: "",
+      index: 0,
     };
     this.handleClick = this.handleClick.bind(this);
+    this.changeStyle = this.changeStyle.bind(this);
+    this.renderStyle = this.renderStyle.bind(this);
   }
-
+  renderStyle() {
+    if (this.state.items[this.state.index] === undefined) {
+      return (
+        <h4 id="style">
+          {"STYLE > "} <label>waiting...</label>{" "}
+        </h4>
+      );
+    } else {
+      return (
+        <h4 id="style">
+          {"STYLE > "}
+          <label id="style-selector-label">
+            {" "}
+            {this.state.items[this.state.index].name}{" "}
+          </label>
+        </h4>
+      );
+    }
+  }
   componentDidMount() {
     axios
       .get("/product/images")
@@ -51,23 +73,44 @@ class App extends React.Component {
 
     return this.state.currentImage;
   }
+
+  changeStyle(event) {
+    this.setState({
+      currentStyle: event.target.getAttribute("name"),
+      index: event.target.getAttribute("index"),
+    });
+  }
+
   render() {
+    console.log("whats the problem exactly", this.state.items);
     return (
       <div className="ext-cont">
         <div className="int-cont">
           <div className="gallery-cont">
-            <ThumbnailsImages changeImage={this.handleClick} />
+            <ThumbnailsImages
+              index={this.state.index}
+              changeImage={this.handleClick}
+            />
           </div>
           <div className="trick"></div>
           <div id="img-cont">
-            <ImageGallery currentImage={this.state.currentImage} />
+            <ImageGallery
+              index={this.state.index}
+              currentImage={this.state.currentImage}
+            />
           </div>
           <div id="general-cont">
             <div id="general-inf-cont">
               <GeneralInformation result={this.state.result} />
             </div>
             <div id="third">
-              <StyleSelector styles={this.state.items} />
+              <div className="style-holder">
+                {this.renderStyle()}
+                <StyleSelector
+                  changeStyle={this.changeStyle}
+                  styles={this.state.items}
+                />
+              </div>
             </div>
           </div>
         </div>

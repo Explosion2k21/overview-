@@ -26,7 +26,7 @@ class ImageGallery extends React.Component {
       })
       .catch((error) => {
         console.log(error);
-      })
+      });
   }
 
   render() {
@@ -34,7 +34,7 @@ class ImageGallery extends React.Component {
     this.state.items.map((item) => {
       myImages.push(item.photos);
     });
-    console.log("imaages hee", myImages[0]);
+    console.log("imaages hee", myImages[this.props.indexs]);
     return (
       <div className="carousel-container">
         <Carousel>
@@ -44,7 +44,7 @@ class ImageGallery extends React.Component {
               url={
                 this.props.currentImage !== ""
                   ? this.props.currentImage
-                  : item[0].url
+                  : item[this.props.index || 0].url
               }
             />
           ))}
