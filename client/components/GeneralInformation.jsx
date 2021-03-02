@@ -27,7 +27,6 @@ class GeneralInformation extends React.Component {
   }
 
   render() {
-    console.log("my props", this.props.result);
     return (
       <div className="cont">
         <div className="rate-review-container">

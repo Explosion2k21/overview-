@@ -15,10 +15,8 @@ class StarRating extends React.Component {
     myResult.map((element) => {
       totalRating += element.rating;
     });
-    console.log(totalRating);
-    console.log(totalUsers);
+
     var currentRate = totalRating / totalUsers || 0;
-    console.log(currentRate);
     return (
       <div className="star_rating_container">
         {totalUsers ? (

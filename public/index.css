@@ -133,3 +133,6 @@
 #Dark-Grey-Black {
   background: radial-gradient(black, rgb(80, 80, 80));
 }
+#style-selector-label {
+  font-size: 20px;
+}
