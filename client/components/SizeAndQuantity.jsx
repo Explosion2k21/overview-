@@ -5,8 +5,29 @@ class SizeAndQuantity extends React.Component {
     super(props);
     this.state = {
       elements: [],
+      sizes: [],
     };
+    this.renderSize = this.renderSize.bind(this);
   }
+
+  renderSize() {
+    var currentStyle = this.state.elements[this.props.index];
+    var result = [];
+    console.log("gimme", currentStyle);
+    if (currentStyle !== undefined) {
+      var skus = currentStyle.skus;
+      for (var key in skus) {
+        var res = [];
+        res.push(skus[key].size);
+        res.push(skus[key].quantity);
+        result.push(res);
+      }
+      for (var i = 0; i < result.length; i++) {
+        this.setState({});
+      }
+    }
+  }
+
   componentDidMount() {
     axios
       .get("/product/images")
@@ -27,7 +48,8 @@ class SizeAndQuantity extends React.Component {
   }
 
   render() {
-    var ourArr = this.state.elements
+    this.renderSize();
+    var ourArr = this.state.elements;
     return (
       <div>
         <select name="cars" id="opts">
