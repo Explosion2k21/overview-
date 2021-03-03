@@ -3,17 +3,20 @@ const morgan = require("morgan");
 require("dotenv").config();
 const path = require("path");
 const app = express();
+const API_KEY = "8028179854b98b9c5e4776b3c81d0774fc918451";
 const port = process.env.PORT || 3002;
+var cors = require("cors");
 
+app.use(cors());
 var axios = require("axios");
 
 app.use(morgan("dev"));
 app.use(express.static(path.join(__dirname, "../public")));
-app.get("/product", (req, res) => {
+app.get("/overview", (req, res) => {
   axios
     .get("https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/products", {
       headers: {
-        Authorization: process.env.API_KEY,
+        Authorization: API_KEY,
       },
     })
     .then(({ data }) => {
@@ -22,13 +25,13 @@ app.get("/product", (req, res) => {
     .catch((error) => console.error(`Something went wrong ${error}`));
 });
 
-app.get("/reviews/rating", (req, res) => {
+app.get("/overview/rating", (req, res) => {
   axios
     .get(
       "https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/reviews?product_id=11001",
       {
         headers: {
-          Authorization: process.env.API_KEY,
+          Authorization: API_KEY,
         },
       }
     )
@@ -38,13 +41,13 @@ app.get("/reviews/rating", (req, res) => {
     .catch((error) => console.error(`Something went wrong ${error}`));
 });
 
-app.get("/product/images", (req, res) => {
+app.get("/overview/images", (req, res) => {
   axios
     .get(
       "https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/products/11001/styles",
       {
         headers: {
-          Authorization: process.env.API_KEY,
+          Authorization: API_KEY,
         },
       }
     )

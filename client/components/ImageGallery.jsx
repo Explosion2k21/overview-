@@ -14,7 +14,7 @@ class ImageGallery extends React.Component {
   componentDidMount() {
     // getting the images using an axios request from the api
     axios
-      .get("/product/images")
+      .get("http://localhost:3002/overview/images")
       .then((response) => {
         this.setState({
           //setting the state to hold the array that contains the images urls

@@ -7,40 +7,35 @@ class SizeAndQuantity extends React.Component {
       elements: [],
       sizes: [],
     };
-    this.renderSize = this.renderSize.bind(this);
+    // this.renderSize = this.renderSize.bind(this);
   }
 
-  renderSize() {
-    var currentStyle = this.state.elements[this.props.index];
-    var result = [];
-    console.log("gimme", currentStyle);
-    if (currentStyle !== undefined) {
-      var skus = currentStyle.skus;
-      for (var key in skus) {
-        var res = [];
-        res.push(skus[key].size);
-        res.push(skus[key].quantity);
-        result.push(res);
-      }
-      for (var i = 0; i < result.length; i++) {
-        this.setState({});
-      }
-    }
-  }
+  // renderSize() {
+  //   var currentStyle = this.state.elements[this.props.index];
+  //   var result = [];
+  //   console.log("gimme", currentStyle);
+  //   if (currentStyle !== undefined) {
+  //     var skus = currentStyle.skus;
+  //     for (var key in skus) {
+  //       var res = [];
+  //       res.push(skus[key].size);
+  //       res.push(skus[key].quantity);
+  //       result.push(res);
+  //     }
+  //     for (var i = 0; i < result.length; i++) {
+  //       this.setState({});
+  //     }
+  //   }
+  // }
 
   componentDidMount() {
     axios
-      .get("/product/images")
+      .get("http://localhost:3002/overview/product/images")
       .then((response) => {
         // when the data comes, change the items propriety of the state to hold the incoming data by setState function
-        this.setState(
-          {
-            elements: response.data.results,
-          },
-          () => {
-            console.log("need the state 222222222", this.state);
-          }
-        );
+        this.setState({
+          elements: response.data.results,
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -48,8 +43,6 @@ class SizeAndQuantity extends React.Component {
   }
 
   render() {
-    this.renderSize();
-    var ourArr = this.state.elements;
     return (
       <div>
         <select name="cars" id="opts">

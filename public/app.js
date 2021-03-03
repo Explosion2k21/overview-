@@ -11237,7 +11237,7 @@ var ThumbnailsImages = function (_React$Component) {
       var _this2 = this;
 
       //getting the thumbnail urls from the api throw an axios request
-      _axios2.default.get("/product/images").then(function (response) {
+      _axios2.default.get("http://localhost:3002/overview/images").then(function (response) {
         _this2.setState(
         // save the data that we get in the state of the class
         {
@@ -11296,9 +11296,13 @@ var _reactDom = __webpack_require__(11);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_reactDom2.default.render(React.createElement(_App2.default, null), document.getElementById("app"));
+_reactDom2.default.render(_react2.default.createElement(_App2.default, null), document.getElementById("service2"));
 
 /***/ }),
 /* 269 */
@@ -11408,7 +11412,7 @@ var App = function (_React$Component) {
       var _this2 = this;
 
       // getting the array that containst the images of the product from the api with an axios call
-      _axios2.default.get("/product/images").then(function (response) {
+      _axios2.default.get("http://localhost:3002/overview/images").then(function (response) {
         console.log(response.data.results);
         // when the data comes, change the items propriety of the state to hold the incoming data by setState function
         _this2.setState({
@@ -11420,7 +11424,7 @@ var App = function (_React$Component) {
         console.log(error);
       });
       //bringing the ratings from the api
-      _axios2.default.get("/reviews/rating").then(function (response) {
+      _axios2.default.get("http://localhost:3002/overview/rating").then(function (response) {
         //set the results property of the state to hold the elements that contains the rate inside of it
         _this2.setState({
           result: response.data.results
@@ -14342,7 +14346,7 @@ var GeneralInformation = function (_React$Component) {
       var _this2 = this;
 
       //getting the general informations using an axios request to the api
-      _axios2.default.get("/product").then(function (response) {
+      _axios2.default.get("http://localhost:3002/overview").then(function (response) {
         _this2.setState({
           data: response.data[_this2.props.index]
         });
@@ -15958,7 +15962,7 @@ var ImageGallery = function (_React$Component) {
       var _this2 = this;
 
       // getting the images using an axios request from the api
-      _axios2.default.get("/product/images").then(function (response) {
+      _axios2.default.get("http://localhost:3002/overview/images").then(function (response) {
         _this2.setState({
           //setting the state to hold the array that contains the images urls
           items: response.data.results
@@ -81208,40 +81212,37 @@ var SizeAndQuantity = function (_React$Component) {
       elements: [],
       sizes: []
     };
-    _this.renderSize = _this.renderSize.bind(_this);
+    // this.renderSize = this.renderSize.bind(this);
     return _this;
   }
 
+  // renderSize() {
+  //   var currentStyle = this.state.elements[this.props.index];
+  //   var result = [];
+  //   console.log("gimme", currentStyle);
+  //   if (currentStyle !== undefined) {
+  //     var skus = currentStyle.skus;
+  //     for (var key in skus) {
+  //       var res = [];
+  //       res.push(skus[key].size);
+  //       res.push(skus[key].quantity);
+  //       result.push(res);
+  //     }
+  //     for (var i = 0; i < result.length; i++) {
+  //       this.setState({});
+  //     }
+  //   }
+  // }
+
   _createClass(SizeAndQuantity, [{
-    key: "renderSize",
-    value: function renderSize() {
-      var currentStyle = this.state.elements[this.props.index];
-      var result = [];
-      console.log("gimme", currentStyle);
-      if (currentStyle !== undefined) {
-        var skus = currentStyle.skus;
-        for (var key in skus) {
-          var res = [];
-          res.push(skus[key].size);
-          res.push(skus[key].quantity);
-          result.push(res);
-        }
-        for (var i = 0; i < result.length; i++) {
-          this.setState({});
-        }
-      }
-    }
-  }, {
     key: "componentDidMount",
     value: function componentDidMount() {
       var _this2 = this;
 
-      _axios2.default.get("/product/images").then(function (response) {
+      _axios2.default.get("http://localhost:3002/overview/product/images").then(function (response) {
         // when the data comes, change the items propriety of the state to hold the incoming data by setState function
         _this2.setState({
           elements: response.data.results
-        }, function () {
-          console.log("need the state 222222222", _this2.state);
         });
       }).catch(function (error) {
         console.log(error);
@@ -81250,8 +81251,6 @@ var SizeAndQuantity = function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      this.renderSize();
-      var ourArr = this.state.elements;
       return _react2.default.createElement(
         "div",
         null,

@@ -11,7 +11,7 @@ class GeneralInformation extends React.Component {
   componentDidMount() {
     //getting the general informations using an axios request to the api
     axios
-      .get("/product")
+      .get("http://localhost:3002/overview")
       .then((response) => {
         this.setState({
           data: response.data[this.props.index],
