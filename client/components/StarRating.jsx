@@ -1,14 +1,15 @@
 import React from "react";
 import StarRatings from "react-star-ratings";
 import axios from "axios";
-// import axios from "axios";
-// import addRate from "../redux/actions/ratingActions";
+
 class StarRating extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
+    // after passing the array that contains the rating through the props, we gonna map throw it a
+    // and sum the total numbre of rating then devide it by the number of users that voted for that product
     const myResult = this.props.ratingArr;
     var totalRating = 0;
     var totalUsers = this.props.ratingArr.length;

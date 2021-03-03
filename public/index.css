@@ -111,7 +111,6 @@
 
 .trick {
   height: 5rem;
-
   width: 2rem;
   display: inline-block;
 }
@@ -135,4 +134,20 @@
 }
 #style-selector-label {
   font-size: 20px;
+}
+
+.size-selector-dropDown {
+  border-color: rgb(128, 128, 128);
+  border-width: 1px;
+}
+
+#opts {
+  height: 3rem;
+  width: 60%;
+  display: inline-block;
+  margin-right: 2rem;
+}
+#qunts {
+  height: 3rem;
+  width: 30%;
 }

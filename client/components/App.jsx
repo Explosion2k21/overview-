@@ -4,6 +4,7 @@ import GeneralInformation from "./GeneralInformation.jsx";
 import ImageGallery from "./ImageGallery.jsx";
 import ThumbnailsImages from "./ThumbnailsImages.jsx";
 import StyleSelector from "./StyleSelector.jsx";
+import SizeAndQuantity from "./SizeAndQuantity.jsx";
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -12,8 +13,8 @@ class App extends React.Component {
       data: [],
       result: [],
       currentImage: "",
-      currentStyle: "",
       index: 0,
+      skus: 0,
     };
     this.handleClick = this.handleClick.bind(this);
     this.changeStyle = this.changeStyle.bind(this);
@@ -39,22 +40,29 @@ class App extends React.Component {
     }
   }
   componentDidMount() {
+    // getting the array that containst the images of the product from the api with an axios call
     axios
       .get("/product/images")
       .then((response) => {
+        console.log(response.data.results);
+        // when the data comes, change the items propriety of the state to hold the incoming data by setState function
         this.setState(
           {
             items: response.data.results,
           },
-          () => {}
+          () => {
+            console.log("need the state", this.state);
+          }
         );
       })
       .catch((error) => {
         console.log(error);
       });
+    //bringing the ratings from the api
     axios
       .get("/reviews/rating")
       .then((response) => {
+        //set the results property of the state to hold the elements that contains the rate inside of it
         this.setState({
           result: response.data.results,
         });
@@ -64,25 +72,28 @@ class App extends React.Component {
       });
   }
   handleClick(event) {
+    // when the user clicks, we need to store the url of the targeted element inside of the state so we
+    // can render it later in the main image holder
     this.setState(
       {
         currentImage: event.target.src,
       },
       () => {}
     );
-
+    //return the url that you stored in your state so when you invoce the function in the src of the image it give us the
+    // url of the current image that we want to display
     return this.state.currentImage;
   }
 
   changeStyle(event) {
     this.setState({
-      currentStyle: event.target.getAttribute("name"),
+      //storing the index of each clicked element so we can use that index to render the images of that specific style
       index: event.target.getAttribute("index"),
+      skus: event.target.getAttribute("skus"),
     });
   }
 
   render() {
-    console.log("whats the problem exactly", this.state.items);
     return (
       <div className="ext-cont">
         <div className="int-cont">
@@ -101,14 +112,24 @@ class App extends React.Component {
           </div>
           <div id="general-cont">
             <div id="general-inf-cont">
-              <GeneralInformation result={this.state.result} />
+              <GeneralInformation
+                index={this.state.index}
+                result={this.state.result}
+              />
             </div>
             <div id="third">
               <div className="style-holder">
                 {this.renderStyle()}
                 <StyleSelector
+                  index={this.state.index}
                   changeStyle={this.changeStyle}
                   styles={this.state.items}
+                />
+              </div>
+              <div className="size-and-quantity">
+                <SizeAndQuantity
+                  index={this.state.index}
+                  skus={this.state.skus}
                 />
               </div>
             </div>
