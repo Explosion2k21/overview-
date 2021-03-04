@@ -11,7 +11,7 @@ class ThumbnailsImages extends React.Component {
   componentDidMount() {
     //getting the thumbnail urls from the api throw an axios request
     axios
-      .get("http://localhost:3002/overview/images")
+      .get("http://159.65.127.126:3002/overview/images")
       .then((response) => {
         this.setState(
           // save the data that we get in the state of the class
