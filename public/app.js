@@ -11237,7 +11237,7 @@ var ThumbnailsImages = function (_React$Component) {
       var _this2 = this;
 
       //getting the thumbnail urls from the api throw an axios request
-      _axios2.default.get("http://localhost:3002/overview/product/images").then(function (response) {
+      _axios2.default.get("http://161.35.223.194:3002/overview/product/images").then(function (response) {
         _this2.setState(
         // save the data that we get in the state of the class
         {
@@ -11412,7 +11412,7 @@ var App = function (_React$Component) {
       var _this2 = this;
 
       // getting the array that containst the images of the product from the api with an axios call
-      _axios2.default.get("http://localhost:3002/overview/product/images").then(function (response) {
+      _axios2.default.get("http://161.35.223.194:3002/overview/product/images").then(function (response) {
         console.log(response.data.results);
         // when the data comes, change the items propriety of the state to hold the incoming data by setState function
         _this2.setState({
@@ -11424,7 +11424,7 @@ var App = function (_React$Component) {
         console.log(error);
       });
       //bringing the ratings from the api
-      _axios2.default.get("http://localhost:3002/overview/rating").then(function (response) {
+      _axios2.default.get("http://161.35.223.194:3002/overview/rating").then(function (response) {
         //set the results property of the state to hold the elements that contains the rate inside of it
         _this2.setState({
           result: response.data.results
@@ -14346,7 +14346,7 @@ var GeneralInformation = function (_React$Component) {
       var _this2 = this;
 
       //getting the general informations using an axios request to the api
-      _axios2.default.get("http://localhost:3002/overview").then(function (response) {
+      _axios2.default.get("http://161.35.223.194:3002/overview").then(function (response) {
         _this2.setState({
           data: response.data[_this2.props.index]
         });
@@ -15962,7 +15962,7 @@ var ImageGallery = function (_React$Component) {
       var _this2 = this;
 
       // getting the images using an axios request from the api
-      _axios2.default.get("http://localhost:3002/overview/product/images").then(function (response) {
+      _axios2.default.get("http://161.35.223.194:3002/overview/product/images").then(function (response) {
         _this2.setState({
           //setting the state to hold the array that contains the images urls
           items: response.data.results
@@ -81239,7 +81239,7 @@ var SizeAndQuantity = function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      _axios2.default.get("http://localhost:3002/overview/product/images").then(function (response) {
+      _axios2.default.get("http://161.35.223.194:3002/overview/product/images").then(function (response) {
         // when the data comes, change the items propriety of the state to hold the incoming data by setState function
         _this2.setState({
           elements: response.data.results
