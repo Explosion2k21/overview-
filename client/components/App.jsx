@@ -42,7 +42,7 @@ class App extends React.Component {
   componentDidMount() {
     // getting the array that containst the images of the product from the api with an axios call
     axios
-      .get("http://159.65.127.126:3002/overview/images")
+      .get("http://159.65.127.126:3002/overview/product/images")
       .then((response) => {
         console.log(response.data.results);
         // when the data comes, change the items propriety of the state to hold the incoming data by setState function

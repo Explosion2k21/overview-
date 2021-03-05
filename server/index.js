@@ -3,7 +3,7 @@ const morgan = require("morgan");
 require("dotenv").config();
 const path = require("path");
 const app = express();
-const API_KEY = "0598ca53576143acecf0567d4e40adbf3863396d";
+const API_KEY = "21de55df671af8ee32a155fd25f9650798e4e4be";
 const port = process.env.PORT || 3002;
 var cors = require("cors");
 
@@ -40,7 +40,7 @@ app.get("/overview/rating", (req, res) => {
     .catch((error) => console.error(`Something went wrong ${error}`));
 });
 
-app.get("/overview/images", (req, res) => {
+app.get("/overview/product/images", (req, res) => {
   axios
     .get(
       "https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/products/11001/styles",
