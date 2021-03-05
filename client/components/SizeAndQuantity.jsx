@@ -30,7 +30,7 @@ class SizeAndQuantity extends React.Component {
 
   componentDidMount() {
     axios
-      .get("http://159.65.127.126:3002/overview/product/images")
+      .get(`http://localhost:3002/overview/product/images`)
       .then((response) => {
         // when the data comes, change the items propriety of the state to hold the incoming data by setState function
         this.setState({

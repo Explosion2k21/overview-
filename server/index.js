@@ -3,8 +3,9 @@ const morgan = require("morgan");
 require("dotenv").config();
 const path = require("path");
 const app = express();
-const API_KEY = process.env.APIKEY;
+const API_KEY = process.env.API_KEY;
 const port = process.env.PORT || 3002;
+const host = process.env.DEV_HOST || "localhost";
 var cors = require("cors");
 
 app.use(cors());
@@ -58,5 +59,5 @@ app.get("/overview/product/images", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`server running at: http://localhost:${port}`);
+  console.log(`server running at: http://${process.env.DEV_HOST}:${port}`);
 });
