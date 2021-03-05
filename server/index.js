@@ -5,7 +5,7 @@ const path = require("path");
 const app = express();
 const API_KEY = process.env.API_KEY;
 const port = process.env.PORT || 3002;
-const host = process.env.DEV_HOST || "localhost";
+// const host = process.env.DEV_HOST || "localhost";
 var cors = require("cors");
 
 app.use(cors());
