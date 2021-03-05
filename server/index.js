@@ -3,7 +3,7 @@ const morgan = require("morgan");
 require("dotenv").config();
 const path = require("path");
 const app = express();
-const API_KEY = "21de55df671af8ee32a155fd25f9650798e4e4be";
+const API_KEY = process.env.APIKEY;
 const port = process.env.PORT || 3002;
 var cors = require("cors");
 
