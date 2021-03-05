@@ -9,7 +9,6 @@ var cors = require("cors");
 
 app.use(cors());
 var axios = require("axios");
-
 app.use(morgan("dev"));
 app.use(express.static(path.join(__dirname, "../public")));
 app.get("/overview", (req, res) => {
